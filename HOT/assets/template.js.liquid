@@ -1,0 +1,448 @@
+( function( $ ) {
+	"use strict";
+
+	/**
+	 * Check all images are done yet.
+	 *
+	 * @version 1.0.0
+	 */
+	$.fn.WR_ImagesLoaded = function( callback ) {
+		var WR_Images = function( src, callback ) {
+			var img = new Image;
+			img.onload = callback;
+			img.src = src;
+		}
+		var images = this.find( 'img' ).toArray().map( function( element ) {
+			return element.src;
+		});
+
+		if( images.length ) {
+			var loaded = 0;
+			$( images ).each( function( i, src ) {
+				WR_Images( src, function() {
+					loaded++;
+					if ( loaded == images.length ) {
+						callback();
+					}
+				})
+			});
+		} else {
+			callback();
+		}
+	}
+
+	/*
+	 * [ Product quantity adjust ] - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Adjust_Cart_Quantity() {
+		$( 'body' ).on( 'click', '.product__cart--quantity .plus', function( e ) {
+			var $input = $( this ).prev();
+			$input.val( parseInt( $input.val() ) + 1 );
+			$input.trigger('change');
+		} );
+		$( 'body' ).on( 'click', '.product__cart--quantity .minus', function( e ) {
+			var $input = $( this ).next();
+			var value = parseInt( $input.val() ) - 1;
+			if ( value < 1 )
+				value = 1;
+			$input.val( value );
+			$input.trigger( 'change' );
+		} );
+	}
+
+	/*
+	 * [ Init Magnific Popup ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Open_Modal() {
+		var el = $( '.we-popup' );
+		el.each( function( i, val ) {
+			var _option = $( this ).data( 'popup' );
+
+			if ( _option !== undefined ) {
+				var _type = _option.type;
+
+				$( val ).magnificPopup({
+					type: _type,
+					mainClass: 'mfp-fade',
+					removalDelay: 300
+				});
+			}
+		});
+	}
+
+	/*
+	 * [ Init Slick Slider ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Init_Slick_Slider() {
+		if ( $( '.we-slider' ).length > 0 ) {
+			$( '.we-slider' ).slick({
+				customPaging: function (slider, i) {
+					return (i + 1) + '/' + slider.slideCount;
+				}
+			});
+		}
+	}
+
+	/*
+	 * [ Open menu 3D ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Open_Menu() {
+		var el = $( '.we-open-menu' );
+
+		el.each( function( i, val ) {
+			var _option = $( this ).data( 'menu' ),
+				_body   = $( 'body' );
+
+			if ( _option !== undefined ) {
+				var _effect = _option.effect,
+					_target = _option.target;
+
+				$( val ).on( 'click', function() {
+					setTimeout(function() {
+						_body.addClass( 'menu-opened animated effect-' + _effect + ' ' + _target );
+						_body.append( '<a class="menu-close" href="#"><i class="we-icon-close"></i></a>' );
+					}, 10 );
+
+					var mask = '<div class="mask-overlay">';
+					$( mask ).hide().appendTo( 'body' ).fadeIn( 'fast' );
+
+					setTimeout(function() {
+						$( '.login .user-form, .register .user-form, #shopify-product-reviews' ).addClass( 'translated' );
+					}, 400 );
+
+					$( '.search-form' ).removeClass( 'opened' );
+					$( 'body' ).removeAttr( 'style' );
+				});
+
+				_body.on( 'click', '.wrapper, .menu-close', function( e ) {
+					if ( _body.hasClass( 'menu-opened' ) ) {
+						$( 'body' ).removeClass( 'menu-opened login register menu-right effect-moveleft effect-laydown' ).addClass( 'flip-up' );
+						$( '.user-form' ).removeClass( 'translated flip-to-login flip-to-register flip-to-forgot' );
+						$( '.menu-close' ).remove();
+						$( ' .mask-overlay' ).fadeOut();
+
+						setTimeout(function() {
+							$( 'body' ).removeClass( 'animated flip-up' );
+							$( ' .mask-overlay' ).remove();
+						}, 500 );
+					}
+				});
+			}
+		});
+	}
+
+	/*
+	 * [ Toggle login form ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Toggle_Login_Form() {
+		$( 'body' ).on( 'click', '.user__form--register', function() {
+			$( '.user-form' ).addClass( 'flip-to-register' ).removeClass( 'flip-to-login flip-to-forgot' );;
+		});
+		$( 'body' ).on( 'click', '.user__form--login', function() {
+			$( '.user-form' ).addClass( 'flip-to-login' ).removeClass( 'flip-to-register flip-to-forgot' );
+		});
+		$( 'body' ).on( 'click', '.user__form--forgot', function() {
+			$( '.user-form' ).addClass( 'flip-to-forgot' ).removeClass( 'flip-to-register flip-to-login' );
+		});
+	}
+  
+  
+  	function Login(email, password) {  
+      var data = {
+        'customer[email]': email,
+        'customer[password]': password,
+        form_type: 'customer_login'
+      };
+
+      var promise = $.ajax({
+        url: '/account/login',
+        method: 'post',
+        data: data,
+        dataType: 'html',
+        async: true
+      });
+
+      return promise;
+    }
+  
+    function Register(email, password, firstName, lastName) {
+      var data = {
+        'customer[email]': email,
+        'customer[password]': password,
+        'customer[first_name]': firstName,
+        'customer[last_name]': lastName,
+        form_type: 'create_customer',
+        utf8: '✓'
+      };
+      var promise_1 = $.ajax({
+        url: '/account',
+        method: 'post',
+        data: data,
+        dataType: 'html',
+        async: true
+      });
+	  console.log(promise_1);
+      return promise_1;
+      
+    }
+
+	/*
+	 * [ Open search form and Mini cart ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Init_Icon_Header() {
+		$( 'body' ).on( 'click', '.we-open-search', function() {
+			$( 'body' ).css( 'overflow', 'hidden' );
+			$( '.search-form' ).addClass( 'opened' );
+			setTimeout(function() {
+				$( '.form__search--text' ).focus();
+			}, 100 )
+
+			if ( $( '.search-form' ).hasClass( 'opened' ) ) {
+				$( '.search-close' ).on( 'click', function() {
+					$( '.search-form' ).removeClass( 'opened' );
+					$( 'body' ).removeAttr( 'style' );
+				});
+			}
+		});
+		
+	}
+
+	/*
+	 * [ Calculator height of element ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Calculator_Height_Element() {
+		var el = $( '.we-masonry' ),
+			it = $( '.masonry__item' ),
+			wh = $( window ).outerHeight(),
+			wd = $( window ).outerWidth(),
+			hh = $( '.site-header' ).outerHeight(),
+			fh = $( '.site-footer' ).outerHeight(),
+			cw = wd - 60,
+			ch = wh - hh - fh;
+
+		it.each( function( i, val ) {
+			var _option = $( this ).data( 'item' );
+
+			if ( _option !== undefined ) {
+				var _width  = _option.width,
+					_height = _option.height;
+
+				$( val ).css({
+					'width': parseInt( cw * _width / 10 ),
+					'height': parseInt( ch * _height / 3 )
+				});
+			}
+		});
+		$( '.h--full' ).css( 'height', ch );
+		$( '.mh--100' ).css( 'min-height', ch );
+		$( '.banner__img--full' ).css( 'height', ch - $( '.banner__title' ).outerHeight() - 100 );
+	}
+
+	/*
+	 * [ Isotope filter ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Isotope_Filter() {
+		setTimeout( function() {
+			$( '.posts' ).isotope({
+				itemSelector: '.col-lg-4',
+				percentPosition: true,
+				masonry: {
+					columnWidth: '.grid-sizer'
+				}
+			});
+		}, 10 );
+
+		$( '.filter__list' ).on( 'click', '.filter__click', function() {
+			var filterValue = $( this ).attr( 'data-filter' );
+			$( '.shop__list' ).isotope({ filter: filterValue });
+
+			if ( $( this ).hasClass( 'selected' ) ) {
+				return false;
+			}
+
+			var $optionSet = $( this ).parents( '.filter__list' );
+			$optionSet.find( '.selected' ).removeClass( 'selected' );
+			$( this ).addClass( 'selected' );
+		});
+		$( '.filter__triger' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( '.filter__triger, .form__filter, .shop__list' ).addClass( 'filter-is-visible' );
+			$( '.form__filter--close' ).on( 'click', function( e ) {
+				e.preventDefault();
+				$( '.filter__triger, .form__filter, .shop__list' ).removeClass( 'filter-is-visible' );
+				setTimeout( function( e ) {
+					$( '.shop__list' ).isotope( 'layout' );
+				}, 300 );
+			});
+			setTimeout( function() {
+				$( '.shop__list' ).isotope( 'layout' );
+			}, 300 );
+		});
+
+		$( '.filter__list--mobile' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( this ).next().slideToggle();
+		});
+	}
+
+	/*
+	 * [ Filter by price ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+  	{% if settings.filter_price_enable %}
+  	function showProducts(minPrice, maxPrice) {
+      $('.filter-btn').click(function(){
+      	$(".shop__list .product__item").hide().filter(function() {
+          var price = parseInt($(this).data("price"), 10);
+          return price >= minPrice && price <= maxPrice;
+      	}).show();
+        setTimeout( function() {
+			$( '.shop__list' ).isotope({
+				itemSelector: '.product__item',
+				layoutMode : 'fitRows'
+			});
+		}, 10 );
+      });
+    }
+  
+	function Filter_By_Price() {
+      var options = {
+          range: true,
+          min: 0,
+          max: 1000,
+          values: [0, 300],
+          slide: function(event, ui) {
+              var min = ui.values[0],
+                  max = ui.values[1];
+
+              $(".price-amount").val("$" + min + " - $" + max);
+              showProducts(min, max);
+          }
+      }, min, max;
+      $(".slider-range").slider(options);
+      
+      min = $(".slider-range").slider("values", 0);
+      max = $(".slider-range").slider("values", 1);
+
+      $(".price-amount").val("$" + min + " - $" + max);
+
+      showProducts(min, max);
+	}
+    
+  	{% endif %}
+
+	/*
+	 * [ Shop categories ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Shop_Categories() {
+		var acc = document.getElementsByClassName( 'expand' );
+		var i;
+
+		for ( i = 0; i < acc.length; i++ ) {
+			acc[i].onclick = function( e ) {
+				e.preventDefault();
+				this.classList.toggle( 'active' );
+				this.nextElementSibling.classList.toggle( 'show' );
+			}
+		}
+	}
+
+	/*
+	 * [ Init Scroll Reveal ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function init_ScrollReveal() {
+		if ( typeof ScrollReveal == 'function') {
+			window.sr = ScrollReveal();
+
+			sr.reveal( '.sr', {
+				viewOffset: { top: 64 }
+			});
+		}
+	}
+
+	/*
+	 * [ Choose location ] - - - - - - - - - - - - - - - - - - - - - - -
+	 */
+	function Choose_Location() {
+		$( '.location__current' ).on( 'click', function( e ) {
+			e.preventDefault();
+			$( '.location__flag' ).addClass( 'opened' );
+			$( '.location__flag a' ).on( 'click', function( e ) {
+				e.preventDefault();
+				$( '.location__flag' ).removeClass( 'opened' );
+				var img = $(this).children().attr( 'src' );
+				$( '.location__current' ).children().attr( 'src', img )
+			});
+		})
+	}
+	
+	/**
+    
+    
+	 * Document ready
+	 *
+	 * @version 1.0.0
+	 */
+	$( document ).ready( function() {
+		Adjust_Cart_Quantity();
+		Init_Slick_Slider();
+		Toggle_Login_Form();
+		Init_Icon_Header();
+		Calculator_Height_Element();
+		Open_Modal();
+		Open_Menu();
+		Shop_Categories();
+		Isotope_Filter(); 
+		Filter_By_Price();
+		init_ScrollReveal();
+		Choose_Location();
+
+		$( '.shop__list' ).WR_ImagesLoaded( function() {
+			$( '.shop__list' ).isotope();
+		});
+        $( '.btn-login' ).click(function() {
+          var email = $('.form__login .user__form--email').val(),
+          	  password = $('.form__login .user__form--pass').val();
+          Login(email, password).done(function (html) {  
+            if (html.indexOf('Invalid login credentials') !== -1) {
+              alert('Invalid login credentials');
+            } else {
+              window.location.href = '/account';
+            }
+          });
+        });
+      
+      	$( '.btn-register' ).click(function() {
+          var email = $('.form__register .user__form--email').val(),
+          	  password = $('.form__register .user__form--pass').val(),
+          	  lastName = $('.form__register .user__form--lastname').val(),
+          	  firstName = $('.form__register .user__form--firstname').val();
+          Register(email, password, firstName, lastName).done(function (html) {
+            // logic for registration errors
+            if (html.indexOf('email is invalid') !== -1) {
+              	alert('Email is invalid');
+            } else if (html.indexOf('email can&#39;t be blank') !== -1) { 
+				alert('Email can&#39;t be blank');
+            } else if (html.indexOf('password can&#39;t be blank.') !== -1) {
+              	alert('Password can&#39;t be blank.');
+            } else {
+            	window.location.href = '/account';
+            }
+          });
+        });
+      	
+
+    });
+
+	/**
+	 * Window resize
+	 *
+	 * @version 1.0.0
+	 */
+	$( window ).on( 'resize', function() {
+		Calculator_Height_Element();
+		if ( 'isotope' !== undefined ) {
+			$( '.we-masonry' ).isotope( 'layout' );
+		}
+	});
+
+} ) ( jQuery );

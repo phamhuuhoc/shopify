@@ -1,0 +1,68 @@
+<!-- /templates/list-collections.liquid -->
+{% comment %}
+
+  This page represents the /collections and /products pages.
+  It is an optional, but highly recommended, template for your theme.
+
+  More info:
+    - http://docs.shopify.com/manual/configuration/store-customization/taking-control-of-collections-listing
+{% include 'breadcrumb' %}
+{% endcomment %}
+
+{% comment %}
+  Loop through each collection, except 'frontpage'
+{% endcomment %}
+<div class="categories bg--light">
+  <div class="h--full">
+    <div class="row h--100">
+      <div class="col-md-4 col-xs-12">
+        <div class="banner sr banner__style-2 flex col">
+          <div class="menu--cat">
+            {% assign collec_all_title_1 = settings['collec_all_title_1'] %}
+            <img class="banner__img--full" src="{{ 'collec_all_image_1.png' | asset_url }}" alt="{{ collec_all_title_1 }}" width="208" height="813" />
+            {% assign collec_all_link_1 = settings['collec_all_link_1'] %}
+            <ul class="font--akzidenzcds-bold head--25">
+              <li class="menu__cat--item head--35">{{ collec_all_title_1 }}</li>
+              {% for link in linklists[collec_all_link_1].links %}
+              <li class="menu__cat--item"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <h3 class="banner__title head--45 font--akzidenzcds-regular">{{ collec_all_title_1 }}</h3>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <div class="banner sr banner__style-2 flex col">
+          <div class="menu--cat">
+            {% assign collec_all_title_2 = settings['collec_all_title_2'] %}
+            <img class="banner__img--full" src="{{ 'collec_all_image_2.png' | asset_url }}" alt="{{ collec_all_title_2 }}" width="208" height="813" />
+            {% assign collec_all_link_1 = settings['collec_all_link_2'] %}
+            <ul class="font--akzidenzcds-bold head--25">
+              <li class="menu__cat--item head--35">{{ collec_all_title_2 }}</li>
+              {% for link in linklists[collec_all_link_1].links %}
+              <li class="menu__cat--item"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <h3 class="banner__title head--45 font--akzidenzcds-regular">{{ collec_all_title_2 }}</h3>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <div class="banner sr banner__style-2 flex col">
+          <div class="menu--cat">
+            {% assign collec_all_title_3 = settings['collec_all_title_3'] %}
+            <img class="banner__img--full" src="{{ 'collec_all_image_3.png' | asset_url }}" alt="{{ collec_all_title_3 }}" width="208" height="813" />
+            {% assign collec_all_link_1 = settings['collec_all_link_3'] %}
+            <ul class="font--akzidenzcds-bold head--25">
+              <li class="menu__cat--item head--35">{{ collec_all_title_3 }}</li>
+              {% for link in linklists[collec_all_link_1].links %}
+              <li class="menu__cat--item"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <h3 class="banner__title head--45 font--akzidenzcds-regular">{{ collec_all_title_3 }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- .categories -->

@@ -1,0 +1,27 @@
+<!-- /snippets/blog-sidebar.liquid -->
+{% comment %}
+  Blog tags
+{% endcomment %}
+{% if blog.all_tags.size > 0 %}
+<div class="widget">
+  <h3 class="widget__title">{{ 'blogs.sidebar.categories' | t }}</h3>
+  <ul class="widget__blog">
+    {% for tag in blog.all_tags %}
+      {% if current_tags contains tag %}
+      <li>{{ tag }}</li>
+      {% else %}
+      <li>{{ tag | link_to_tag: tag }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+<div class="widget">
+  <h3 class="widget__title">Sort by</h3>
+  <ul class="widget__blog">
+    <li><a href="#">Recent posts</a></li>
+    <li><a href="#">popular</a></li>
+    <li><a href="#">Recent comments</a></li>
+    <li><a href="#">featured</a></li>
+  </ul>
+</div>

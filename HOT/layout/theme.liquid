@@ -1,0 +1,352 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Basic page needs ================================================== -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    {% if settings.favicon_enable %}
+    <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+    {% endif %}
+
+    <!-- Title and description ================================================== -->
+    <title>
+    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    <!-- Helpers ================================================== -->
+    {% include 'social-meta-tags' %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+
+    {% if template == "index" %}
+      <!-- Main stylesheet -->
+      {{ 'style.scss.css' | asset_url | stylesheet_tag }}
+
+    {% else %}
+
+      <!-- Slick -->
+        {{ 'slick.scss.css' | asset_url | stylesheet_tag }}
+      
+            <!-- Magnific Popup -->
+          {{ 'magnific-popup.scss.css' | asset_url | stylesheet_tag }}
+      
+            <!-- jQuery UI -->
+          {{ 'jquery-ui.min.scss.css' | asset_url | stylesheet_tag }}
+          <!-- Font Awesome -->
+      {{ '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' | stylesheet_tag }}
+        <!-- Main stylesheet -->
+      {{ 'style.scss.css' | asset_url | stylesheet_tag }}
+        
+          {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
+            {{ '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js' | script_tag }}
+          {{ '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' | script_tag }}
+
+            {% comment %}
+            <!-- jQuery Core -->
+            {{ 'jquery.min.js' | asset_url | script_tag }}
+
+            <!-- jQuery UI -->
+            {{ 'jquery-ui.min.js' | asset_url | script_tag }}
+            {% endcomment %}
+      <!-- imagesloaded -->
+          {{ '//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js' | script_tag }}
+            <!-- isotope -->
+            {{ 'isotope.pkgd.min.js' | asset_url | script_tag }}
+      <!-- Header hook for plugins ================================================== -->
+      {{ content_for_header }}
+      {% include 'oldIE-js' %}
+      {{ 'modernizr.min.js' | asset_url | script_tag }}
+
+      {% comment %}
+      If you store has customer accounts disabled, you can remove the following JS file
+      {% endcomment %}
+      {% if template contains 'customers' %}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+      {% endif %}
+            {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+            {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+          <!-- Slick -->
+      {{ 'slick.min.js' | asset_url | script_tag }}
+            <script>
+                window.money_format = "{{shop.money_with_currency_format}}";
+                window.shop_currency = "{{ shop.currency }}";
+                window.file_url = "{{''|file_url}}";
+                window.ajaxcart_type = "{{ settings.ajax_cart_method }}";
+            </script>
+    {% endif %}
+  </head>
+  <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+  {% if template == "index" %}
+    {{ content_for_layout }}
+  {% else %}
+
+    <div class="wrapper">
+      <header class="site-header fixed">
+        <div class="row middle-xs">
+          <div class="col-lg-4 col-lg-offset-0 col-xs-8 col-xs-offset-2 start-lg center-xs">
+                        {% if settings.logo_use_image %}
+                        <a href="{{ shop.secure_url }}/pages/home-page" itemprop="url" class="logo-desktop visible-lg hide-xs">
+                          <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo" width="226" height="45">
+                        </a>
+                        {% else %}
+                        <a href="{{ shop.secure_url }}/pages/home-page" itemprop="url">{{ shop.name }}</a>
+                        {% endif %}
+            <a class="logo-mobile hide-lg visible-xs" href="{{ shop.secure_url }}/pages/home-page"><img src="{{ 'logo_mobile.png' | asset_url }}" width="69" height="75" alt="Workout Empire" /></a>
+          </div>
+          <div class="col-lg-4 visible-lg hide-xs center-lg">
+            <ul class="menu menu--main font--akzidenzcds-regular">
+                          {% for bbLink in linklists.main-menu.links %}
+                              {% assign linkHandle = bbLink.title | handleize %}
+                              {% assign isMega = false %}
+                              {% assign intMega = 0 %}
+                              {% for i in (1..6) %}
+                                  {% assign menuItem = bbLink.title %}
+                                  {% assign megaMenuItem = 'bbmenu_item' | append:i %}
+                                      {% if settings[megaMenuItem] contains menuItem %}
+                                          {% assign isMega = true %}
+                                          {% assign intMega = i %}
+                                      {% endif %}
+                              {% endfor %}
+                              {% if isMega %}
+                                  <li class="menu__item has__sub sub__mega{% if bbLink.active %} active{% endif %}">
+                                    <a href="{{ bbLink.url }}" title="">{{ bbLink.title }}</a>
+                                    {% include 'bb-megamenu' %}
+                                   </li>
+                              {% else %}
+                                  {% if linklists[linkHandle].links != blank %}
+                                      {% comment %}====== MENU LEVEL I ======{% endcomment %}
+                                      <li class="menu__item has__sub{% if bbLink.active %} active{% endif %}">
+                                          <a href="{{ bbLink.url }}" title="">{{ bbLink.title }}</a>
+                                          <ul class="sub__menu">
+                                              {% for bbLink1 in linklists[linkHandle].links %}
+                                                  {% assign linkHandle = bbLink1.title | handleize %}
+                                                  {% if linklists[linkHandle].links != blank %}
+                                                      {% comment %}====== MENU LEVEL II ======{% endcomment %}
+                                                      <li class="menu__item has__sub{% if bbLink1.active %} active{% endif %}">
+                                                          <a href="{{ bbLink1.url }}" title="">{{ bbLink1.title }}</a>
+                                                          <ul class="sub__menu">
+                                                              {% for bbLink2 in linklists[linkHandle].links %}
+                                                                  {% assign linkHandle = bbLink2.title | handleize %}
+                                                                  {% if linklists[linkHandle].links != blank %}
+                                                                      {% comment %}====== MENU LEVEL III ======{% endcomment %}
+                                                                      <li class="menu__item has__sub{% if bbLink2.active %} active{% endif %}">
+                                                                          <a href="{{ bbLink2.url }}" title="">{{ bbLink2.title }}</a>
+                                                                          <ul class="sub__menu">
+                                                                              {% for bbLink3 in linklists[linkHandle].links %}
+                                                                                  <li class="{% if bbLink3.active %}active{% endif %}">
+                                                                                      <a href="{{ bbLink3.url }}" title="">{{ bbLink3.title }}</a>
+                                                                                  </li>
+                                                                              {% endfor %}
+                                                                          </ul>
+                                                                      </li>
+                                                                  {% else %}
+                                                                      <li class="menu__item{% if bbLink2.active %} active{% endif %}">
+                                                                          <a href="{{ bbLink2.url }}" title="">{{ bbLink2.title }}</a>
+                                                                      </li>
+                                                                  {% endif %}
+                                                              {% endfor %}
+                                                          </ul>
+                                                      </li>
+                                                  {% else %}
+                                                      <li class="menu__item{% if bbLink1.active %} active{% endif %}">
+                                                          <a href="{{ bbLink1.url }}" title="">{{ bbLink1.title }}</a>
+                                                      </li>
+                                                  {% endif %}
+                                              {% endfor %}
+                                          </ul>
+                                      </li>
+                                  {% else %}
+                                      <li class="menu__item{% if bbLink.active %} active{% endif %}">
+                                          <a href="{{ bbLink.url }}" title="">{{ bbLink.title }}</a>
+                                      </li>
+                                  {% endif %}
+                              {% endif %}
+                          {% endfor %}
+            </ul>
+          </div>
+          <div class="col-lg-4 col-xs-12 flex end-xs middle-xs action-md">
+            <ul class="menu menu--icon">
+              <li class="menu__item"><a class="we-open-search" href="#"><i class="we-icon-search"></i></a></li>
+                            {% if customer %}
+              <li class="menu__item"><a href="{{ shop.secure_url }}/pages/wishlist"><i class="we-icon-heart"></i></a></li>
+                            {% endif %}
+              <li class="menu__item"><a class="we-open-cart" href="#"><i class="we-icon-bag"></i></a></li>
+            </ul>
+            <ul class="menu menu--user font--akzidenzcds-regular visible-lg hide-xs">
+                            {% if customer %}
+                            <li class="menu__item">{{ 'layout.customer.log_out' | t | customer_logout_link }}</li>
+                            {% else %}
+              <li class="menu__item"><a class="we-open-menu" data-menu='{"effect": "laydown", "target": "login"}' href="#">Login</a></li>
+                            {% endif %}
+                            {% if shop.customer_accounts_optional %}
+              <li class="menu__item"><a class="we-open-menu" data-menu='{"effect": "laydown", "target": "register"}' href="#">Sign Up</a></li>
+                            {% endif %}
+            </ul>
+            <a class="menu menu--rotate we-open-menu" data-menu='{"effect": "moveleft", "target": "menu-right"}' href="#"><span class="menu__bar"></span></a>
+          </div>
+        </div>
+      </header><!-- .site-header -->
+          
+      <div class="site-content{% if template == "article" %} h--100{% endif %}">
+                {{ content_for_layout }}
+      </div><!-- .site-content -->
+
+      <footer class="site-footer fixed">
+        <div class="row middle-xs">
+          <div class="col-lg-4 col-xs-12 start-lg center-xs">
+            <div class="flex">
+                            {% assign listlinks_footer = settings['footer_nav'] %}
+              <ul class="menu menu--footer font--akzidenzcds-regular">
+                                {% for link in linklists[listlinks_footer].links %}
+                <li class="menu__item"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+                                {% endfor %}
+              </ul>
+              <div class="store-location">
+                <a href="{{ settings['title_store_1'] }}" class="location__current"><img src="{{ 'flag_1.png' | asset_url }}" alt="{{ settings['link_store_1'] }}" width="16" height="16" /></a>
+                <div class="location__flag">
+                                    {% for i in (2..4) %}
+                                    {% capture title_store %}title_store_{{i}}{% endcapture %}
+                                    {% capture link_store %}link_store_{{i}}{% endcapture %}
+                                    {% capture flag %}flag_{{i}}.png{% endcapture %}
+                                    <a href="{{ settings[link_store] }}"><img src="{{ flag | asset_url }}" alt="{{ settings[title_store] }}" width="16" height="16" /></a>
+                                    {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-xs-12 center-xs">
+            <div class="copyright">Copyright &reg; 2016 Workout Empire. All rights reserved.</div>
+          </div>
+                    {% if settings.footer_newsletter_enable %}
+          <div class="col-lg-4 col-xs-12 visible-lg hide-xs end-lg">
+                        {% if settings.newsletter_form_action != blank %}
+                        <form action="{{ settings.newsletter_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="subscribe">
+                          <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="subscribe__input" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                          <button class="subscribe__btn" type="submit"><i class="we-icon-arrow-long"></i></button>
+                        </form>
+                        {% else %}
+                          {% form 'customer' %}
+                          {{ form.errors | default_errors }}
+                          {% if form.posted_successfully? %}
+                            <p class="note form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                          {% else %}
+                            <form class="subscribe">
+                              <input type="hidden" name="contact[tags]" value="newsletter">
+                              <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email" class="subscribe__input" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+                              <button class="subscribe__btn" type="submit"><i class="we-icon-arrow-long"></i></button>
+                            </form>
+                          {% endif %}
+                          {% endform %}
+                        {% endif %}
+          </div>
+                    {% endif %}
+        </div>
+      </footer><!-- .site-footer -->
+    </div><!-- .wrapper -->
+
+    <div class="user-form">
+      <form class="form__login" action="/account/login" method="post">
+                <input value="customer_login" name="form_type" type="hidden">
+                <input name="utf8" value="✓" type="hidden">
+        <h3 class="head--45 font--akzidenzcds-regular">Login</h3>
+        <input type="text" name="customer[email]" value="" class="user__form--email w--100" placeholder="Username" />
+        <input type="password" name="customer[password]" value="" class="user__form--pass w--100" placeholder="Password" />
+        <div class="flex between-xs">
+          <label class="input__style input__style--checkbox"><input type="checkbox" class="" value="0" />Remember Me<span></span></label>
+          <a class="user__form--forgot" href="#recover">Forgot password?</a>
+        </div>
+        <input type="button" value="Login" class="btn btn--blue w--100 btn-login" />
+        <p>You don’t have Workout Empire account ?</p>
+        <a class="user__form--register head--25 register font--akzidenzcds-regular" href="#">Register now</a>
+      </form>
+
+      <form class="form__register" action="/account" method="post">
+        <h3 class="head--45 font--akzidenzcds-regular">Register</h3>
+        <input type="text" name="customer[first_name]" class="user__form--name user__form--firstname w--100" placeholder="First name" />
+                <input type="text" name="customer[last_name]" class="user__form--name user__form--lastname w--100" placeholder="Last name" />
+        <input type="text" name="customer[email]" class="user__form--email w--100" placeholder="Email" />
+        <input type="password" name="customer[password]" class="user__form--pass w--100" placeholder="Password" />
+        <div class="flex center-xs">
+          <a class="user__form--forgot" href="#">Forgot password?</a>
+        </div>
+        <input type="button" value="Register" class="btn btn--blue w--100 btn-register" />
+        <p>Already have an account ?</p>
+        <a class="user__form--login head--25 register font--akzidenzcds-regular" href="#">Login Now</a>
+      </form>
+
+      <form class="form__lostpw" action="/account/recover" method="post">
+        <h3 class="head--45 font--akzidenzcds-regular">Lost Password</h3>
+        <input type="text" name="email" class="user__form--name w--100" placeholder="Email" />
+        <input type="submit" value="Reset Password" class="btn btn--blue w--100" />
+        <a class="user__form--login head--25 register font--akzidenzcds-regular" href="#">Back to Login</a>
+      </form>
+    </div><!-- .user-form -->
+
+    <div class="outer-nav">
+      <ul class="menu menu--right font--akzidenzcds-regular">
+              {% assign outer_link = settings['outer_nav'] %}
+              {% for link in linklists[outer_link].links %}
+                <li class="menu__right--item"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+              {% endfor %}
+      </ul>
+    </div><!-- .outer-nav -->
+
+    <div class="search-form">
+      <form class="form__search" role="search" method="get" action="/search">
+              {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+        <input type="search" name="q" value="{{ search.terms | escape }}" class="form__search--text" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+        <button class="form__search--submit" type="submit"><i class="we-icon-search"></i><span class="hidden fallback-text">{{ 'general.search.submit' | t }}</span></button>
+      </form>
+      <a class="search-close" href="#"><i class="we-icon-close"></i></a>
+    </div><!-- .search-form -->
+      
+        {% if settings.ajax_cart_method == "drawer" %}
+        <div id="cartDrawer" class="mini-cart drawer drawerRight">
+          <h3 class="mini__cart--title font--akzidenzcds-regular head--35">
+            Your Cart 
+            <a href="#" class="mini__cart--close"><i class="we-icon-close"></i></a>
+          </h3>
+          <div id="cartContainer" class="mini__cart--content"></div>
+        </div><!-- .mini-cart -->
+        {% endif %}
+        {% include 'ajax-cart-template' %}
+
+    
+        <!-- Magnific Popup -->
+        {{ 'jquery.magnific-popup.min.js' | asset_url | script_tag }}
+      
+        {% if template == "product" %}
+        <!-- Smint -->
+        {{ 'jquery.smint.js' | asset_url | script_tag }}
+        {% endif %}
+        
+    <!-- Main Javascript -->
+    {{ 'template.js' | asset_url | script_tag }}
+        
+        {% if template == "article" %}
+        <!-- classie -->
+        {{ 'classie.js' | asset_url | script_tag }}
+        {% endif %}
+      
+        
+        {{ 'fastclick.min.js' | asset_url | script_tag }}
+    
+    {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+        {{ 'handlebars.min.js' | asset_url | script_tag }}
+        {{ 'bb-ajax-cart.js' | asset_url | script_tag }}
+        {{ 'bb-template.js' | asset_url | script_tag }}
+        
+      
+  {% endif %}
+  </body>
+</html>

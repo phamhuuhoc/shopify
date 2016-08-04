@@ -1,0 +1,831 @@
+[
+  {
+    "name": "theme_info",
+    "logo": "https:\/\/cdn.shopify.com\/s\/files\/1\/0070\/7032\/files\/2010_6_23_Shopify-Green_256x256.jpg",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Bravebit Template"
+      },
+      {
+        "type": "paragraph",
+        "content": "v1.1.0"
+      },
+      {
+        "type": "paragraph",
+        "content": "Theme settings allow designers to provide an easy way for any user to customize the look and feel of their shop without having to delve into HTML or CSS code. Please see our [help page on theme settings](http:\/\/docs.shopify.com\/themes\/theme-templates\/settings) to learn more about how you can make the theme customizable."
+      }
+    ]
+  },
+  {
+    "name": "Landing Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Store Languages"
+      },
+      {
+        "type": "text",
+        "id": "title_store_1",
+        "label": "Title Store 1"
+      },
+      {
+        "type": "text",
+        "id": "link_store_1",
+        "label": "Url Store 1"
+      },
+      {
+        "type": "image",
+        "id": "flag_1.png",
+        "label": "Flag 1",
+        "max-width": 31,
+        "max-height": 31,
+        "info": "31 x 31px .png"
+      },
+      {
+        "type": "text",
+        "id": "title_store_2",
+        "label": "Title Store 2"
+      },
+      {
+        "type": "text",
+        "id": "link_store_2",
+        "label": "Url Store 2"
+      },
+      {
+        "type": "image",
+        "id": "flag_2.png",
+        "label": "Flag 2",
+        "max-width": 31,
+        "max-height": 31,
+        "info": "31 x 31px .png"
+      },
+      {
+        "type": "text",
+        "id": "title_store_3",
+        "label": "Title Store 3"
+      },
+      {
+        "type": "text",
+        "id": "link_store_3",
+        "label": "Url Store 3"
+      },
+      {
+        "type": "image",
+        "id": "flag_3.png",
+        "label": "Flag 3",
+        "max-width": 31,
+        "max-height": 31,
+        "info": "31 x 31px .png"
+      },
+      {
+        "type": "text",
+        "id": "title_store_4",
+        "label": "Title Store 4"
+      },
+      {
+        "type": "text",
+        "id": "link_store_4",
+        "label": "Url Store 4"
+      },
+      {
+        "type": "image",
+        "id": "flag_4.png",
+        "label": "Flag 4",
+        "max-width": 31,
+        "max-height": 31,
+        "info": "31 x 31px .png"
+      }
+    ]
+  },
+  {
+    "name": "Homepage SliderShow",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Slider"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_slider_1",
+        "label": "Enable Slider 1"
+      },
+      {
+        "type": "textarea",
+        "id": "content_slider_1",
+        "label": "Content Slider 1",
+        "placeholder": "You can input content with HTML"
+      },
+      {
+        "type": "image",
+        "id": "slider_image_1.png",
+        "label": "Background Slider 1",
+        "max-width": 1920,
+        "max-height": 1920,
+        "info": "1920 x 1920px .png"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_slider_2",
+        "label": "Enable Slider 2"
+      },
+      {
+        "type": "textarea",
+        "id": "content_slider_2",
+        "label": "Content Slider 2",
+        "placeholder": "You can input content with HTML"
+      },
+      {
+        "type": "image",
+        "id": "slider_image_2.png",
+        "label": "Background Slider 2",
+        "max-width": 1920,
+        "max-height": 1920,
+        "info": "1920 x 1920px .png"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_slider_3",
+        "label": "Enable Slider 3"
+      },
+      {
+        "type": "textarea",
+        "id": "content_slider_3",
+        "label": "Content Slider 3",
+        "placeholder": "You can input content with HTML"
+      },
+      {
+        "type": "image",
+        "id": "slider_image_3.png",
+        "label": "Background Slider 3",
+        "max-width": 1920,
+        "max-height": 1920,
+        "info": "1920 x 1920px .png"
+      },
+      {
+        "type": "header",
+        "content": "Config SliderShow"
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_arrows_enable",
+        "label": "Show Arrows"
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_dots_enable",
+        "label": "Show Dots"
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_autoplay_enable",
+        "label": "Autoplay Enable"
+      },
+      {
+        "type": "select",
+        "id": "slider_effect",
+        "options": [
+          {
+            "value": "fade",
+            "label": "Fade"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "label": "Effect Option"
+      }
+    ]
+  },
+  {
+    "name": "Homepage Category Block",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Category Block"
+      },
+      {
+        "type": "text",
+        "id": "title_cate_1",
+        "label": "Title Category 1"
+      },
+      {
+        "type": "image",
+        "id": "cat_block_image_1.jpg",
+        "label": "Category image 1",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "800 x 800px .jpg"
+      },
+      {
+        "type": "collection",
+        "id": "collection_1",
+        "label": "Collection 1"
+      },
+      {
+        "type": "text",
+        "id": "title_cate_2",
+        "label": "Title Category 2"
+      },
+      {
+        "type": "image",
+        "id": "cat_block_image_2.jpg",
+        "label": "Category image 2",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "800 x 800px .jpg"
+      },
+      {
+        "type": "collection",
+        "id": "collection_2",
+        "label": "Collection 2"
+      },
+      {
+        "type": "text",
+        "id": "title_cate_3",
+        "label": "Title Category 3"
+      },
+      {
+        "type": "image",
+        "id": "cat_block_image_3.jpg",
+        "label": "Category image 3",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "800 x 800px .jpg"
+      },
+      {
+        "type": "collection",
+        "id": "collection_3",
+        "label": "Collection 3"
+      },
+      {
+        "type": "text",
+        "id": "title_cate_4",
+        "label": "Title Category 4"
+      },
+      {
+        "type": "image",
+        "id": "cat_block_image_4.jpg",
+        "label": "Category image 4",
+        "max-width": 800,
+        "max-height": 800,
+        "info": "800 x 800px .jpg"
+      },
+      {
+        "type": "collection",
+        "id": "collection_4",
+        "label": "Collection 4"
+      }
+    ]
+  },
+  {
+    "name": "Megamenu Content",
+    "settings": [
+      {
+        "type": "header",
+        "content": "1st MEGAMENU"
+      },
+      {
+        "type": "text",
+        "id": "bbmenu_item1",
+        "label": "Menu Using Mega",
+        "info": "Menu item of main-menu. Menu item has dropdown megamenu."
+      },
+      {
+        "type": "header",
+        "content": "Block 1"
+      },
+      {
+        "type": "radio",
+        "id": "bbmg_style_block_1",
+        "options": [
+          {
+            "value": "navigation",
+            "label": "Navigation Link"
+          },
+          {
+            "value": "html_content",
+            "label": "Html Content"
+          }
+        ],
+        "label": "Type block 1"
+      },
+      {
+        "type": "text",
+        "id": "bbmg_block_title1",
+        "label": "Block Title"
+      },
+      {
+        "type": "header",
+        "content": "Navigation Link"
+      },
+      {
+        "type": "link_list",
+        "id": "bbmg_navigation_link1"
+      },
+      {
+        "type": "header",
+        "content": "Html Content"
+      },
+      {
+        "type": "textarea",
+        "id": "bbmg_html_content1",
+        "label": "Content HTML",
+        "info": "You can input HTML code, img tag, video code, ..."
+      },
+      {
+        "type": "header",
+        "content": "Block 2"
+      },
+      {
+        "type": "radio",
+        "id": "bbmg_style_block_2",
+        "options": [
+          {
+            "value": "navigation",
+            "label": "Navigation Link"
+          },
+          {
+            "value": "html_content",
+            "label": "Html Content"
+          }
+        ],
+        "label": "Type block 2"
+      },
+      {
+        "type": "text",
+        "id": "bbmg_block_title2",
+        "label": "Block Title"
+      },
+      {
+        "type": "header",
+        "content": "Navigation Link"
+      },
+      {
+        "type": "link_list",
+        "id": "bbmg_navigation_link2"
+      },
+      {
+        "type": "header",
+        "content": "Html Content"
+      },
+      {
+        "type": "textarea",
+        "id": "bbmg_html_content2",
+        "label": "Content HTML",
+        "info": "You can input HTML code, img tag, video code, ..."
+      },
+      {
+        "type": "header",
+        "content": "Block 3"
+      },
+      {
+        "type": "radio",
+        "id": "bbmg_style_block_3",
+        "options": [
+          {
+            "value": "navigation",
+            "label": "Navigation Link"
+          },
+          {
+            "value": "html_content",
+            "label": "Html Content"
+          }
+        ],
+        "label": "Type block 3"
+      },
+      {
+        "type": "text",
+        "id": "bbmg_block_title3",
+        "label": "Block Title"
+      },
+      {
+        "type": "header",
+        "content": "Navigation Link"
+      },
+      {
+        "type": "link_list",
+        "id": "bbmg_navigation_link3"
+      },
+      {
+        "type": "header",
+        "content": "Html Content"
+      },
+      {
+        "type": "textarea",
+        "id": "bbmg_html_content3",
+        "label": "Content HTML",
+        "info": "You can input HTML code, img tag, video code, ..."
+      },
+      {
+        "type": "header",
+        "content": "Block 4"
+      },
+      {
+        "type": "radio",
+        "id": "bbmg_style_block_4",
+        "options": [
+          {
+            "value": "navigation",
+            "label": "Navigation Link"
+          },
+          {
+            "value": "html_content",
+            "label": "Html Content"
+          }
+        ],
+        "label": "Type block 4"
+      },
+      {
+        "type": "text",
+        "id": "bbmg_block_title4",
+        "label": "Block Title"
+      },
+      {
+        "type": "header",
+        "content": "Navigation Link"
+      },
+      {
+        "type": "link_list",
+        "id": "bbmg_navigation_link4"
+      },
+      {
+        "type": "header",
+        "content": "Html Content"
+      },
+      {
+        "type": "textarea",
+        "id": "bbmg_html_content4",
+        "label": "Content HTML",
+        "info": "You can input HTML code, img tag, video code, ..."
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_use_image",
+        "label": "Use custom logo"
+      },
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom logo",
+        "max-width": 450,
+        "max-height": 200,
+        "info": "450 x 200px .png"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Max logo width",
+        "default": "450",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "header",
+        "content": "Logo mobile"
+      },
+      {
+        "type": "image",
+        "id": "logo_mobile.png",
+        "label": "Logo mobile",
+        "max-width": 450,
+        "max-height": 200,
+        "info": "450 x 200px .png"
+      },
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "checkbox",
+        "id": "favicon_enable",
+        "label": "Use custom icon"
+      },
+      {
+        "type": "image",
+        "id": "favicon.png",
+        "label": "Icon",
+        "max-width": 32,
+        "max-height": 32,
+        "info": "32 x 32px .png required"
+      },
+      {
+        "type": "header",
+        "content": "Outer Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "outer_nav",
+        "label": "Outer Navigation"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "footer_social_enable",
+        "label": "Show social media icons"
+      },
+      {
+        "type": "header",
+        "content": "Footer Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_nav",
+        "label": "Footer Navigation"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_enable",
+        "label": "Show newsletter field"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Newsletter Title"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_form_action",
+        "label": "MailChimp form action URL",
+        "info": "[Where do I find my MailChimp form action URL?](http:\/\/docs.shopify.com\/support\/configuration\/store-customization\/where-do-i-get-my-mailchimp-form-action)"
+      }
+    ]
+  },
+  {
+    "name": "Collection All",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Column 1"
+      },
+      {
+        "type": "text",
+        "id": "collec_all_title_1",
+        "label": "Column Title 1"
+      },
+      {
+        "type": "link_list",
+        "id": "collec_all_link_1",
+        "label": "Navigation"
+      },
+      {
+        "type": "image",
+        "id": "collec_all_image_1.png",
+        "label": "Image",
+        "max-width": 1920,
+        "max-height": 1920
+      },
+      {
+        "type": "header",
+        "content": "Column 2"
+      },
+      {
+        "type": "text",
+        "id": "collec_all_title_2",
+        "label": "Column Title 2"
+      },
+      {
+        "type": "link_list",
+        "id": "collec_all_link_2",
+        "label": "Navigation"
+      },
+      {
+        "type": "image",
+        "id": "collec_all_image_2.png",
+        "label": "Image",
+        "max-width": 1920,
+        "max-height": 1920
+      },
+      {
+        "type": "header",
+        "content": "Column 3"
+      },
+      {
+        "type": "text",
+        "id": "collec_all_title_3",
+        "label": "Column Title 3"
+      },
+      {
+        "type": "link_list",
+        "id": "collec_all_link_3",
+        "label": "Navigation"
+      },
+      {
+        "type": "image",
+        "id": "collec_all_image_3.png",
+        "label": "Image",
+        "max-width": 1920,
+        "max-height": 1920
+      }
+    ]
+  },
+  {
+    "name": "Shop Collection",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Block top collection"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_top_enable",
+        "label": "Enable Block Top Collection"
+      },
+      {
+        "type": "image",
+        "id": "top_shop.png",
+        "label": "Image",
+        "max-width": 1920,
+        "max-height": 1920,
+        "info": "1840 x 816px .png"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar collection"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_sidebar_enable",
+        "label": "Enable Sidebar Collection"
+      },
+      {
+        "type": "link_list",
+        "id": "collection_sidebar",
+        "label": "Sidebar Collection"
+      },
+      {
+        "type": "header",
+        "content": "Filter in shop"
+      },
+      {
+        "type": "checkbox",
+        "id": "filter_price_enable",
+        "label": "Enable Price Filter"
+      },
+      {
+        "type": "checkbox",
+        "id": "filter_tag_enable",
+        "label": "Enable Tags Filter"
+      },
+      {
+        "type": "checkbox",
+        "id": "filter_size_enable",
+        "label": "Enable Size Filter"
+      },
+      {
+        "type": "checkbox",
+        "id": "filter_color_enable",
+        "label": "Enable Color Filter"
+      },
+      {
+        "type": "checkbox",
+        "id": "filter_vendor_enable",
+        "label": "Enable Vendor Filter"
+      }
+    ]
+  },
+  {
+    "name": "Product detail",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Banner Product Detail"
+      },
+      {
+        "type": "checkbox",
+        "id": "banner_detail_enable",
+        "label": "Enable Banner"
+      },
+      {
+        "type": "textarea",
+        "id": "banner_content_detail",
+        "label": "Content Banner"
+      },
+      {
+        "type": "image",
+        "id": "banner_pro_detail.png",
+        "label": "Banner product detail",
+        "max-width": 1920,
+        "max-height": 1920,
+        "info": "1840 x 816px .png"
+      },
+      {
+        "type": "header",
+        "content": "Guide Image"
+      },
+      {
+        "type": "image",
+        "id": "size-guide.jpg",
+        "label": "Size Guide image",
+        "max-width": 1920,
+        "max-height": 1920,
+        "info": "1840 x 816px .jpg"
+      },
+      {
+        "type": "header",
+        "content": "Product Reviews"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_reviews_enable",
+        "label": "Enable Product Reviews?"
+      }
+    ]
+  },
+  {
+    "name": "Cart page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_vendor_enable",
+        "label": "Show product vendor"
+      },
+      {
+        "type": "select",
+        "id": "ajax_cart_method",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "id": "bg_title_cart.jpg",
+        "label": "Top Cart Image",
+        "max-width": 1840,
+        "max-height": 277,
+        "info": "1840 x 277px .png"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter URL",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook URL",
+        "info": "https:\/\/www.facebook.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Blog",
+    "settings": [
+      {
+        "type": "select",
+        "id": "article_per_page",
+        "options": [
+          {
+            "value": "3",
+            "label": "3 Article"
+          },
+          {
+            "value": "6",
+            "label": "6 Article"
+          },
+          {
+            "value": "9",
+            "label": "9 Article"
+          },
+          {
+            "value": "12",
+            "label": "12 Article"
+          }
+        ],
+        "label": "Article Per Page"
+      }
+    ]
+  }
+]

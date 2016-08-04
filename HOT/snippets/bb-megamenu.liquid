@@ -1,0 +1,62 @@
+<ul class="sub__menu row">
+  <li class="menu__item col-lg-3">
+    <h4 class="mega--title">{{ settings.bbmg_block_title1 }}</h4>
+    {% if settings.bbmg_style_block_1 == "navigation" %}
+    <ul>
+      {% assign bbmg_navigation_link1 = settings['bbmg_navigation_link1'] %}
+      {% for bbmglinks1 in linklists[bbmg_navigation_link1].links %}
+      <li class="menu__item"><a href="{{ bbmglinks1.url }}">{{ bbmglinks1.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div>
+    	{{ settings.bbmg_html_content1 }}
+    </div>
+    {% endif %}
+  </li>
+  <li class="menu__item col-lg-3">
+    <h4 class="mega--title">{{ settings.bbmg_block_title2 }}</h4>
+    {% if settings.bbmg_style_block_2 == "navigation" %}
+    <ul>
+      {% assign bbmg_navigation_link2 = settings['bbmg_navigation_link2'] %}
+      {% for bbmglinks2 in linklists[bbmg_navigation_link2].links %}
+      <li class="menu__item"><a href="{{ bbmglinks2.url }}">{{ bbmglinks2.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div>
+    	{{ settings.bbmg_html_content2 }}
+    </div>
+    {% endif %}
+  </li>
+  <li class="menu__item col-lg-3">
+    <h4 class="mega--title">{{ settings.bbmg_block_title3 }}</h4>
+    {% if settings.bbmg_style_block_3 == "navigation" %}
+    <ul>
+      {% assign bbmg_navigation_link3 = settings['bbmg_navigation_link3'] %}
+      {% for bbmglinks3 in linklists[bbmg_navigation_link3].links %}
+      <li class="menu__item"><a href="{{ bbmglinks3.url }}">{{ bbmglinks3.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div>
+    	{{ settings.bbmg_html_content3 }}
+    </div>
+    {% endif %}
+  </li>
+  <li class="menu__item col-lg-3">
+    <h4 class="mega--title">{{ settings.bbmg_block_title4 }}</h4>
+    {% if settings.bbmg_style_block_4 == "navigation" %}
+    <ul>
+      {% assign bbmg_navigation_link4 = settings['bbmg_navigation_link4'] %}
+      {% for bbmglinks4 in linklists[bbmg_navigation_link4].links %}
+      <li class="menu__item"><a href="{{ bbmglinks4.url }}">{{ bbmglinks4.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div>
+    	{{ settings.bbmg_html_content4 }}
+    </div>
+    {% endif %}
+  </li>
+</ul>

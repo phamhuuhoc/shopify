@@ -1,0 +1,208 @@
+<!-- /templates/collection.liquid -->
+{% comment %}
+
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+  {% include 'breadcrumb' %}c
+{% endcomment %}
+{% comment %}
+<div class="grid--rev">
+  <div class="grid__item large--three-quarters">
+    {% if collection.description != blank %}
+      <header class="section-header">
+        <h1 class="section-header__title">{{ collection.title }}</h1>
+        <div class="rte rte--header">
+          {{ collection.description }}
+        </div>
+      </header>
+      <hr>
+      <div class="section-header">
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
+      </div>
+    {% else %}
+      <header class="section-header">
+        <h1 class="section-header__title section-header__left">{{ collection.title }}</h1>
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
+      </header>
+    {% endif %}
+    <div class="grid-uniform">
+      {% for product in collection.products %}
+
+        {% include 'product-grid-item' %}
+
+      {% else %}
+
+        {% if collection.handle == 'all' and current_tags == '' %}
+
+          {% comment %}
+            Add default products to help with onboarding for collections/all only
+          {% endcomment %}
+          {% unless emptyState %}
+            {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+            {% assign emptyState = true %}
+          {% endunless %}
+          {% include 'onboarding-empty-collection' %}
+
+        {% else %}
+
+          {% comment %}
+            If collection exists but is empty, display message
+          {% endcomment %}
+          <div class="grid__item">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+
+        {% endif %}
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</div>
+
+{% endpaginate %}
+{% endcomment %}
+<div class="shop">
+  {% if collection.image %}
+    <div class="page-title">
+      <img src="{{ collection.image | collection_img_url: 'master' }}" alt="{{ collection.title }}" width="1840" height="422" />
+      {% comment %}
+      {{ collection.title }}
+      {{ collection.description }}
+      {% endcomment %}
+    </div>
+  {% else %}
+    <div class="page-title">
+      <img src="{{ 'top_shop.png' | asset_url }}" width="1840" heiht="422" alt="Shop Title" />
+    </div>
+  {% endif %}
+  <div class="flex">
+    <div class="shop__left">
+      <div class="flex between-xs shop__filter font--akzidenzcds-regular">
+        <a href="#" class="filter__triger"><i class="we-icon-slide"></i> Filter</a>
+        <div class="filter__list filter__text">
+          <a class="filter__list--mobile" href="#"><span class="menu__bar"></span></a>
+          <div class="filter__list--menu">
+            <a class="filter__click selected" href="#" data-filter="*">All</a>
+            <a class="filter__click" href="#" data-filter=".filter-recent">Recent products</a>
+            <a class="filter__click" href="#" data-filter=".filter-popular">Top popular</a>
+            <a class="filter__click" href="#" data-filter=".filter-featured">Featured</a>
+            <a class="filter__click" href="#" data-filter=".filter-best-seller">Best seller</a>
+          </div>
+        </div>
+      </div>
+      <div class="shop__list flex wrap" data-isotope='{"itemSelector": ".product__item", "layoutMode": "fitRows"}'>
+        {% if collection.products_count > 0 %}
+          {% for product in collection.products %}
+              {% assign size = "" %}
+              {% assign color = "" %}
+            {% assign arr_color = "" %}
+              {% if product.vendor %}
+              {% assign vendor = "filter-" | append: product.vendor | downcase %}
+              {% endif %}
+              {% assign date_published = product.published_at | date:'%Y%m%d' %}
+              {% assign date_now = 'now' | date:'%Y%m%d' %}
+              {% assign date_difference = date_now | minus: date_published %}
+              {% for collections in product.collections %}
+                  {% if collections.handle  == 'home-page' %}
+                      {% capture  featured %}filter-featured{% endcapture %}
+                  {% endif %}
+                  {% if collections.handle  == 'best-seller' %}
+                      {% capture  best_seller %}filter-best-seller{% endcapture %}
+                  {% endif %}
+                  {% if collections.handle  == 'most-popular' %}
+                      {% capture  popular %}filter-popular{% endcapture %}
+                  {% endif %}
+              {% endfor %}
+            {% for variant in product.variants %}
+              {% if variant.inventory_quantity > 0 %}
+                    {% assign size = size | append: " filter-size-" | append: variant.option1 | downcase %}
+              {% comment %}
+                    {% assign color = color | append: " filter-color-" | append: variant.option2 | downcase %}
+              {% endcomment %}
+              {% comment %}
+              Check color show uniq
+              {% endcomment %}
+              {% assign arr_size = arr_size | append: "|" | append: variant.option1 %}
+              {% assign arr_color = arr_color | append: "|" | append: variant.option2 %}
+              {% assign vl_size = arr_size | split: "|" %}
+              {% assign vl_color = arr_color | split: "|" %}
+              {% assign i = 0 %}
+              {% for color_item in vl_color %}
+                 {% if color_item ==  variant.option2 %}
+                  {% assign i = i | plus:'1' %}
+                 {% endif %}
+              {% endfor %}
+              {% if i <= 1 %}
+                    {% include 'product-grid-item' %}
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              
+          {% endfor %}
+        {% else %}
+           No product
+        {% endif %}
+      </div><!-- .shop__list -->
+      <div class="form__filter">
+        {% if settings.filter_price_enable %}
+        <div class="widget">
+          <h3 class="widget__title">Price</h3>
+          <div class="filter-by-price">
+            <div class="slider-range"></div>
+            <div class="flex between-xs middle-xs">
+              <input type="text" class="price-amount" />
+              <button class="btn btn--blue btn--md filter-btn" type="button"> Filter </button>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% comment %}
+        <div class="widget">
+          <h3 class="widget__title">collection</h3>
+          <ul class="filter__list filter__checkbox">
+            <li><label class="input__style input__style--checkbox filter__click" data-filter=".filter-recent"><input type="checkbox" value="" />Summer<span></span></label></li>
+            <li><label class="input__style input__style--checkbox filter__click" data-filter=".filter-popular"><input type="checkbox" value="" />JBoy<span></span></label></li>
+            <li><label class="input__style input__style--checkbox filter__click" data-filter=".filter-featured"><input type="checkbox" value="" />P-Men<span></span></label></li>
+            <li><label class="input__style input__style--checkbox filter__click" data-filter=".filter-best-seller"><input type="checkbox" value="" />Hyperfude<span></span></label></li>
+            <li><label class="input__style input__style--checkbox filter__click" data-filter="*"><input type="checkbox" value="" />Winter<span></span></label></li>
+          </ul>
+        </div>
+        {% endcomment %}
+        {% if settings.filter_size_enable %}
+        <div class="widget">
+          <h3 class="widget__title">EXTENDED SIZING</h3>
+          <div class="filter__list filter__label">
+            <a href="#" class="filter__click" data-filter=".filter-size-l">L</a>
+            <a href="#" class="filter__click" data-filter=".filter-size-xl">XL</a>
+            <a href="#" class="filter__click" data-filter=".filter-size-s">S</a>
+            <a href="#" class="filter__click" data-filter=".filter-size-xs">XS</a>
+            <a href="#" class="filter__click" data-filter=".filter-size-m">M</a>
+          </div>
+        </div>
+        {% endif %}
+        {% if settings.filter_vendor_enable %}
+        <div class="widget">
+          <h3 class="widget__title">Brands</h3>
+          <div class="filter__list filter__label">
+          {% for product_vendor in shop.vendors %}
+            <label class="input__style input__style--checkbox filter__click" data-filter=".filter-{{ product_vendor | handleize }}">
+              <input type="checkbox" value="" />{{ product_vendor }}<span></span>
+            </label>
+          {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <a class="form__filter--close" href="#"><i class="we-icon-close"></i></a>
+      </div>
+    </div><!-- .shop__left -->
+    <div class="shop__right">
+      {% include 'collection-sidebar' %}
+    </div><!-- .shop__right -->
+  </div>
+</div><!-- .shop -->

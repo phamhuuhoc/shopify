@@ -1,0 +1,15 @@
+<!-- Content homepage -->
+<div class="landing">
+  <div class="choose-location font--akzidenzcds-regular">
+    <h1>welcome to the Workout empire.<br>please choose your store</h1>
+    <ul>
+      {% for i in (1..4) %}
+          
+      {% capture title_store %}title_store_{{i}}{% endcapture %}
+      {% capture link_store %}link_store_{{i}}{% endcapture %}
+      {% capture flag %}flag_{{i}}.png{% endcapture %}
+      <li><a href="{{ settings[link_store] }}">{{ flag | asset_url | img_tag: settings[title_store]}}{{ settings[title_store] }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div><!-- .landing -->

@@ -1,0 +1,110 @@
+<!-- /templates/blog.liquid -->
+{% comment %}
+  Loop through a defined number of articles with the 'paginate' tag.
+  Don't forget to close the tag after your loop.
+{% endcomment %}
+
+{% paginate blog.articles by settings.article_per_page %}
+{% comment %}
+{% include 'breadcrumb' %}
+{% endcomment %}
+
+{% comment %}
+  This template is also used for listing out articles of a specific tag.
+  You can change layouts or styles by checking if current_tags is true.
+{% endcomment %}
+
+<div class="news bg--gray">
+  <div class="flex">
+    <div class="news__left">
+      <div class="row posts">
+        <div class="grid-sizer"></div>
+        {% for article in blog.articles %}
+        	<div class="col-lg-4 col-md-6 col-xs-12">
+            	<div class="post">
+                  {% if article.image %}
+                  <a class="post__thumbnail" href="{{ article.url }}">
+                    <img class="w--100" src="{{ article.image.src | img_url  : 'master'}}" alt="{{ article.title }}"/>
+                  </a>
+                  {% endif %}
+                  <div class="post__content">
+                    <h3 class="post__title font--akzidenzcds-regular"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+                    <div class="post__meta font--akzidenzcds-regular">{{ article.published_at | date: '%b %d, %Y' }}</div>
+                    <div class="post__entry">
+                      {% if article.excerpt.size > 0 %}
+                        {{ article.excerpt }}
+                      {% else %}
+                        {{ article.content | strip_html | truncatewords: 50 }}
+                      {% endif %}
+                    </div>
+                    <a href="{{ article.url }}" class="post__more font--akzidenzcds-regular">Read more</a>
+                  </div>
+                </div>
+        	</div>
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+      <div class="flex center-xs">
+        <button type="button" id="more" class="btn btn--blue btn--lg">Load More</button>
+      </div>
+      {% endif %}
+    </div>
+    <div class="news__right font--akzidenzcds-regular">
+      {% if current_tags %}
+        <h2 class="head--55">{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h2>
+      {% else %}
+        <h2 class="head--55">{{ blog.title }}</h2>
+      {% endif %}
+      {% include 'blog-sidebar' %}
+    </div>
+  </div>
+</div><!-- .news -->
+
+{% endpaginate %}
+
+<script>
+  (function () {
+    var news;
+    var counter = 2;
+    var	pages = Math.ceil('{{ blog.articles_count }}' / {{ settings.article_per_page }});
+    var	maxCount = pages + 1;
+    var	$content = $('.posts');
+    loadAjax();
+    
+    function addNews() {
+      if (!news) return;
+      var items = $(news).find('.posts').html();
+      $content.append( items ).isotope('insert', $(items) );
+    };
+  	function loadAjax() {
+      var getUrl = "{{ shop.secure_url }}/blogs/{{ blog.handle }}?page="+counter;
+      $.ajax({
+          url: getUrl,
+          type:'GET',
+          success: function(data){
+            counter++;
+        	news = data.replace('<div class="grid-sizer"></div>','');
+          },
+          error : function () {
+          	alert('Loading Failed...');
+          }
+      }).then( function(){
+        $('#more').click( function(e) {
+          addNews();
+          // initialize the isotope plugin - will run only once
+          $content.isotope({
+            itemSelector: '.col-lg-4',
+            percentPosition: true,
+            masonry: {
+              columnWidth: '.grid-sizer'
+            }
+          });
+          if(counter == maxCount ) {
+            $('#more').css('display','none');
+          }
+        });
+      });
+    };
+  
+  })( jQuery );
+</script>

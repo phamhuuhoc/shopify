@@ -1,0 +1,78 @@
+{% comment %}
+  Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+{% assign file_extension = 'png' %}
+{% if swatch == blank %}
+    <div class="swatch error">
+        <p>You must include the snippet swatch.liquid with the name of a product option.</p> 
+        <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+        <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+    </div>
+{% else %}
+  {% assign found_option = false %}
+  {% assign is_color = false %}
+  {% assign option_index = 0 %}
+  {% for option in product.options %}
+      {% if option == swatch %}
+          {% assign found_option = true %}
+          {% assign option_index = forloop.index0 %}
+          <!-- <style rel="stylesheet" type="text/css">
+              label[for="product-select-option-{{ option_index }}"] { display: none; }
+              #product-select-option-{{ option_index }} { display: none; }
+              #product-select-option-{{ option_index }} + .custom-style-select-box { display: none !important; }
+          </style> -->
+          <script>$(window).load(function() { $('.selector-wrapper:eq({{ option_index }})').hide(); });</script>
+          {% assign downcased_option = swatch | downcase %}
+          {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+              {% assign is_color = true %}
+          {% endif %}
+      {% endif %}
+  {% endfor %}
+{% unless found_option %}
+    
+{% else %}
+<div class="swatch clearfix" data-option-index="{{ option_index }}">
+    <div class="header">{{ swatch }}</div>
+  	{% unless is_color %}
+    <div class="select product__cart--size font--akzidenzcds-regular">
+      <div class="nice-select">
+        <a class="select__active current" href="#" onClick="return false;">Choose A Size</a>
+        <div class="list">
+    {% endunless %}
+       
+    {% assign values = '' %}
+    {% for variant in product.variants %}
+        {% assign value = variant.options[option_index] %}
+        {% unless values contains value %}
+            {% assign values = values | join: ',' %}
+            {% assign values = values | append: ',' | append: value %} 
+            {% assign values = values | split: ',' %}
+  			{% if is_color %}
+              <div data-value="{{ value | escape }}" class="swatch-element color {{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
+                <div class="tooltip">{{ value }}</div>
+                <input id="swatch-{{ option_index }}-{{ value | handle }}" type="radio" name="option-{{ option_index }}" value="{{ value | escape }}"{% if forloop.first %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
+                <label for="swatch-{{ option_index }}-{{ value | handle }}"><img src="{{ variant.image.src | img_url: 'medium' }}" alt="{{ option_index }}-{{ value | handle }}" width="115"></label>
+              </div>
+  			{% else %}
+              <div data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
+                <input id="swatch-{{ option_index }}-{{ value | handle }}" type="radio" name="option-{{ option_index }}" value="{{ value | escape }}"{% if forloop.first %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
+                <label for="swatch-{{ option_index }}-{{ value | handle }}">
+                  {{ value }}
+                </label>
+              </div>
+  			{% endif %}
+        {% endunless %}
+        {% if variant.available %}
+            <script>
+                jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+            </script>
+        {% endif %}
+    {% endfor %}
+    {% unless is_color %}
+          </div>
+        </div>
+    </div>
+  	{% endunless %}
+</div>
+{% endunless %}
+{% endif %}

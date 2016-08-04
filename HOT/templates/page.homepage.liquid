@@ -1,0 +1,85 @@
+<!-- /templates/page.homepage.liquid -->
+<!-- Content Homepage -->
+  {% if settings.slider_dots_enable %}
+  	{% assign dots = 'true' %}
+  {% else %}
+	{% assign dots = 'false' %}
+  {% endif %}
+  {% if settings.slider_arrows_enable %}
+      {% assign arrows = 'true' %}
+    {% else %}
+      {% assign arrows = 'false' %}
+    {% endif %}
+  {% if settings.slider_autoplay_enable %}
+  	{% assign autoplay = 'true' %}
+  {% else %}
+	{% assign autoplay = 'false' %}
+  {% endif %}
+  {% assign effect = settings.slider_effect %}
+	{% if effect == 'fade' %}
+  	{% assign fade = 'true' %}
+  {% else %}
+	{% assign fade = 'false' %}
+  {% endif %}
+  
+  <div class="we-slider main--slider" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "fade": {{ fade }}, "autoplay": {{ autoplay }}, "dots": {{ dots }}, "arrows": {{ arrows }}, "responsive":[{"breakpoint": 1025,"settings":{"dots": false, "arrows": false}}]}'>
+    {% if settings.enable_slider_1 %}
+    <div class="slider__item h--full" style="background: url({{ 'slider_image_1.png' | asset_url }}) no-repeat right bottom #f3f7fa;background-size: auto 100%;">
+      <div class="slider__text flex middle-xs h--100">
+        <div>
+          {{ settings.content_slider_1 }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if settings.enable_slider_2 %}
+    <div class="slider__item h--full" style="background: url({{ 'slider_image_2.png' | asset_url }}) no-repeat right bottom;background-size: auto 100%;">
+      <div class="slider__text flex middle-xs h--100">
+        <div>
+          {{ settings.content_slider_2 }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if settings.enable_slider_3 %}
+    <div class="slider__item h--full" style="background: url({{ 'slider_image_3.png' | asset_url }}) no-repeat right bottom;background-size: auto 100%;">
+      <div class="slider__text flex middle-xs h--100">
+        <div>
+          {{ settings.content_slider_3 }}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div><!-- .slider -->
+
+  <div class="row">
+    {% assign collection_1_url = collections[settings.collection_1].url %}
+    {% assign collection_2_url = collections[settings.collection_2].url %}
+    {% assign collection_3_url = collections[settings.collection_3].url %}
+    {% assign collection_4_url = collections[settings.collection_4].url %}
+    <div class="col-lg-3 col-md-6 col-xs-12 mt--30">
+      <div class="banner banner__style-1">
+        <a href="{{ collection_1_url }}"><img class="banner__img" src="{{ 'cat_block_image_1.jpg' | asset_url }}" alt="Banner 01" width="438" height="300" /></a>
+        <h3 class="banner__title head--35 font--akzidenzcds-bold"><a href="{{ collection_1_url }}">{{ settings.title_cate_1 }}</a></h3>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-xs-12 mt--30">
+      <div class="banner banner__style-1">
+        <a href="{{ collection_2_url }}"><img class="banner__img" src="{{ 'cat_block_image_2.jpg' | asset_url }}" alt="Banner 02" width="438" height="300" /></a>
+        <h3 class="banner__title head--35 font--akzidenzcds-bold"><a href="{{ collection_2_url }}">{{ settings.title_cate_2 }}</a></h3>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-xs-12 mt--30">
+      <div class="banner banner__style-1">
+        <a href="{{ collection_3_url }}"><img class="banner__img" src="{{ 'cat_block_image_3.jpg' | asset_url }}" alt="Banner 03" width="438" height="300" /></a>
+        <h3 class="banner__title head--35 font--akzidenzcds-bold"><a href="{{ collection_3_url }}">{{ settings.title_cate_3 }}</a></h3>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-xs-12 mt--30">
+      <div class="banner banner__style-1">
+        <a href="{{ collection_4_url }}"><img class="banner__img" src="{{ 'cat_block_image_4.jpg' | asset_url }}" alt="Banner 04" width="438" height="300" /></a>
+        <h3 class="banner__title head--35 font--akzidenzcds-bold"><a href="{{ collection_4_url }}">{{ settings.title_cate_4 }}</a></h3>
+      </div>
+    </div>
+  </div>
+  {{ page.content }}
